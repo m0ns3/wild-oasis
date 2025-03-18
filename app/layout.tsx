@@ -1,9 +1,14 @@
-import Navigation from "./components/Navigation";
-import Logo from "./components/Logo";
+import Navigation from "@/app/_components/Navigation";
+import Logo from "@/app/_components/Logo";
+import "@/app/_styles/globals.css";
 
 export const metadata = {
-  title: "Wild Oasis 🌎",
-  description: "The Wild Oasis website",
+  // title: "Wild Oasis 🌎",
+  title: {
+    template: "%s | Wild Oasis",
+    default: "Welcome to Wild Oasis",
+  },
+  description: "Luxuriuos cabin hotel in the heart of the wilderness.",
 };
 
 export default function RootLayout({
@@ -13,7 +18,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body>
+      <body className="bg-primary-950 text-primary-100 min-h-screen">
         <header>
           <Logo />
           <Navigation />
