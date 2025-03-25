@@ -4,11 +4,7 @@ import Image from "next/image";
 
 export async function generateMetadata({ params }) {
   const { name } = await getCabin(params.cabinId);
-  return {
-    title: `Cabin ${name}`,
-    description: cabin.description,
-    image: cabin.image,
-  };
+  return { title: `Cabin ${name}` };
 }
 
 export default async function Page({ params }) {
