@@ -3,6 +3,7 @@ import { auth, signIn, signOut } from "@/app/_lib/auth";
 import { supabase } from "./supabase";
 import { revalidatePath } from "next/cache";
 import { getBookings } from "./data-service";
+import { redirect } from "next/navigation";
 
 export async function updateGuest(formData) {
   const session = await auth();
@@ -35,22 +36,62 @@ export async function deleteReservation(bookingId) {
   const session = await auth();
   if (!session) throw new Error("You must be logged in to update your profile");
 
-  const { error } = await supabase
-    .from("bookings")
-    .delete()
-    .eq("id", bookingId);
-
   const guestBookings = await getBookings(session.user.guestId);
   const guestBookingsIds = guestBookings.map((booking) => booking.id);
 
   if (!guestBookingsIds.includes(bookingId)) {
     throw new Error("You cannot delete this booking");
   }
+  const { error } = await supabase
+    .from("bookings")
+    .delete()
+    .eq("id", bookingId);
 
   if (error) {
     throw new Error("Booking could not be deleted");
   }
   revalidatePath("/account/reservations");
+}
+
+export async function updateBooking(formData) {
+  const bookingId = Number(formData.get("bookingId"));
+  //1- Authenticate the user
+  const session = await auth();
+  if (!session) throw new Error("You must be logged in to update your profile");
+
+  // 2- Authorize the user
+  const guestBookings = await getBookings(session.user.guestId);
+  const guestBookingsIds = guestBookings.map((booking) => booking.id);
+
+  if (!guestBookingsIds.includes(bookingId)) {
+    throw new Error("You cannot update this booking");
+  }
+
+  // 3- Building the update data
+  const updateData = {
+    numGuests: Number(formData.get("numGuests")),
+    observations: formData.get("observations").slice(0, 255),
+  };
+
+  // 4- Mutating the data
+  const { error } = await supabase
+    .from("bookings")
+    .update(updateData)
+    .eq("id", bookingId)
+    .select()
+    .single();
+
+  // 5- Handling the error
+  if (error) {
+    throw new Error("Booking could not be updated");
+  }
+
+  // 6- Revalidating the cache
+  revalidatePath("/account/reservations/edit/" + bookingId);
+  revalidatePath("/account/reservations");
+
+  // 7- Redirecting the user
+  redirect("/account/reservations");
 }
 
 export async function signInAction() {
