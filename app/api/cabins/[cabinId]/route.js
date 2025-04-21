@@ -1,6 +1,6 @@
 import { getBookedDatesByCabinId, getCabin } from "@/app/_lib/data-service";
 
-export async function GET({ params }) {
+export async function GET(_, { params }) {
   const { cabinId } = params;
 
   try {
@@ -9,7 +9,7 @@ export async function GET({ params }) {
       getBookedDatesByCabinId(cabinId),
     ]);
     return Response.json({ cabin, bookedDates });
-  } catch (error) {
-    return Response.json({ message: "Cabin not found" });
+  } catch {
+    return Response.json({ message: "Cabin not found" }, { status: 404 });
   }
 }
