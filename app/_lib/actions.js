@@ -22,7 +22,7 @@ export async function updateGuest(formData) {
     nationalID,
   };
 
-  const { data, error } = await supabase
+  const { error } = await supabase
     .from("guests")
     .update(updateData)
     .eq("id", session.user.guestId);
@@ -47,7 +47,7 @@ export async function createBooking(bookingData, formData) {
     hasBreakfast: false,
     status: "unconfirmed",
   };
-  const { data, error } = await supabase.from("bookings").insert([newBooking]);
+  const { error } = await supabase.from("bookings").insert([newBooking]);
 
   if (error) {
     throw new Error("Booking could not be created");
