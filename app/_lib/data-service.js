@@ -146,7 +146,6 @@ export async function getCountries() {
       "https://restcountries.com/v2/all?fields=name,flag"
     );
     const countries = await res.json();
-    console.log("countries", countries);
     return countries;
   } catch {
     return [];
@@ -160,7 +159,6 @@ export async function createGuest(newGuest) {
   const { data, error } = await supabase.from("guests").insert([newGuest]);
 
   if (error) {
-    console.error(error);
     throw new Error("Guest could not be created");
   }
 
