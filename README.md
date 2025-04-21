@@ -10,5 +10,6 @@ The goal of the project is to practice modern React and Next.js concepts, includ
 - Tailwind CSS
 - Supabase 
 
-Link:
-[wild-oasis-wcuz-1o2x1o7qg-monserrats-projects-8b6c6c1b.vercel.app](https://wild-oasis-wcuz-1o2x1o7qg-monserrats-projects-8b6c6c1b.vercel.app/)
+Link: 
+https://wild-oasis-wcuz.vercel.app/
+
