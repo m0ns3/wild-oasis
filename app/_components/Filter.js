@@ -2,7 +2,7 @@
 
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
-function Filter({ children }) {
+function Filter() {
   const searchParams = useSearchParams();
   const router = useRouter();
   const pathname = usePathname();

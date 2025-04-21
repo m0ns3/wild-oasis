@@ -148,7 +148,7 @@ export async function getCountries() {
     const countries = await res.json();
     return countries;
   } catch {
-    throw new Error("Could not fetch countries");
+    return [];
   }
 }
 
@@ -159,7 +159,6 @@ export async function createGuest(newGuest) {
   const { data, error } = await supabase.from("guests").insert([newGuest]);
 
   if (error) {
-    console.error(error);
     throw new Error("Guest could not be created");
   }
 

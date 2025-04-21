@@ -1,14 +1,11 @@
 "use client";
 
 import Image from "next/image";
-import { useState } from "react";
 import { updateGuest } from "@/app/_lib/actions";
 import SubmitButton from "@/app/_components/SubmitButton";
 
 export default function UpdateProfileForm({ children, guest }) {
-  const [count, setCount] = useState(0);
-
-  const { fullName, email, nationality, nationalID, countryFlag } = guest;
+  const { fullName, email, nationalID, countryFlag } = guest;
 
   return (
     <form
@@ -38,11 +35,14 @@ export default function UpdateProfileForm({ children, guest }) {
       <div className="space-y-2">
         <div className="flex items-center justify-between">
           <label htmlFor="nationality">Where are you from?</label>
-          <img
-            src={countryFlag || ""}
-            alt="Country flag"
-            className="object-cover h-5 rounded-sm"
-          />
+          <div className="relative w-8 h-8">
+            <Image
+              src={countryFlag}
+              alt="Country flag"
+              className="object-cover h-5 rounded-sm"
+              fill
+            />
+          </div>
         </div>
       </div>
 
