@@ -31,7 +31,7 @@ export default function Cabin({ cabin }) {
         <ul className="flex flex-col gap-4 mb-7">
           <li className="flex gap-3 items-center">
             <UsersIcon className="h-5 w-5 text-primary-600" />
-            <span className="text-lg">
+            <span className="text-lg" data-testid="cabin-capacity">
               For up to <span className="font-bold">{maxCapacity}</span> guests
             </span>
           </li>
