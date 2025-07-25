@@ -6,7 +6,18 @@ import {
 } from "@heroicons/react/24/outline";
 import TextExpander from "@/app/_components/TextExpander";
 
-export default function Cabin({ cabin }) {
+export interface CabinProps {
+  id: number;
+  created_at: string;
+  name: string;
+  maxCapacity: number;
+  regularPrice: number;
+  discount: number;
+  description: string;
+  image: string;
+}
+
+export default function Cabin(cabin: CabinProps) {
   const { name, maxCapacity, image, description } = cabin;
   return (
     <div className="grid grid-cols-[3fr_4fr] gap-20 border border-primary-800 py-3 px-10 mb-24">

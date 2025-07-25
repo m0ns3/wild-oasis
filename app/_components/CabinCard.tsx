@@ -1,8 +1,16 @@
 import { UsersIcon } from "@heroicons/react/24/solid";
 import Image from "next/image";
 import Link from "next/link";
+import { CabinProps } from "./Cabin";
 
-function CabinCard({ cabin }) {
+interface CabinCardProps {
+  cabin: Pick<
+    CabinProps,
+    "id" | "name" | "maxCapacity" | "regularPrice" | "discount" | "image"
+  >;
+}
+
+function CabinCard({ cabin }: CabinCardProps) {
   const { id, name, maxCapacity, regularPrice, discount, image } = cabin;
 
   return (
